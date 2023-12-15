@@ -9886,5 +9886,35 @@
         }
       }
     }
+  },
+  "squary-v1": {
+    "schema": "generic",
+    "base": "squary",
+    "protocol": "squary-v1",
+    "project": "squary",
+    "deployments": {
+      "squary-v1-goerli": {
+        "network": "goerli",
+        "status": "dev",
+        "versions": {
+          "schema": "1.0.0",
+          "subgraph": "0.0.1",
+          "methodology": "0.0.1"
+        },
+        "files": {
+          "template": "squary-v1.template.yaml"
+        },
+        "options": {
+          "prepare:yaml": true,
+          "prepare:constants": false
+        },
+        "services": {
+          "hosted-service": {
+            "slug": "squary-v1",
+            "query-id": "squary-v1-goerli"
+          }
+        }
+      }
+    }
   }
 }

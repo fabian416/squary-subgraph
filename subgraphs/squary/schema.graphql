@@ -1,0 +1,26 @@
+# Subgraph Schema: Generic
+# Version: 1.4.0
+# See https://github.com/messari/subgraphs/blob/master/docs/SCHEMA.md for details
+
+type Group @entity {
+  id: ID!
+  gnosisSafe: Bytes! # Address of the Gnosis Safe associated with the group
+  memberAddresses: [String!]! # List of member addresses in this group as strings
+  settlements: [Settlement!]! # List of balance adjustments (settlements) in the group
+}
+
+type UserBalance @entity {
+  id: ID!
+  user: Bytes! # Address of the user
+  group: Group!
+  balance: BigInt! # Balance of the user in the group
+}
+
+type Settlement @entity {
+  id: ID!
+  group: Group!
+  debtor: Bytes! # Address of the debtor member
+  creditor: Bytes! # Address of the creditor member
+  amount: BigInt! # Amount of the debt
+  timestamp: BigInt! # Timestamp of the settlement
+}

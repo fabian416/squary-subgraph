@@ -1,0 +1,7 @@
+{
+  "network": "goerli",
+  "factory": {
+    "startBlock": 10208477, 
+    "address": "0xE94E9d573E547DF5B7FCeDA6B03ee279e5B864Ce" 
+  }
+}

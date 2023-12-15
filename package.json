@@ -4,6 +4,7 @@
     "mustache": "^4.2.0"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.23.3",
     "@graphprotocol/graph-ts": "^0.28.0",
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.38.0",

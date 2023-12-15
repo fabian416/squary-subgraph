@@ -1,0 +1,38 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.handleTrade = void 0;
+const getters_1 = require("../common/getters");
+const metrics_1 = require("../common/metrics");
+const snapshots_1 = require("../common/snapshots");
+const events_1 = require("../common/events");
+function handleTrade(event) {
+    const traderAddress = event.params.trader;
+    const subjectAddress = event.params.subject;
+    const isBuy = event.params.isBuy;
+    const shares = event.params.shareAmount;
+    const supply = event.params.supply;
+    const sharePriceAmount = event.params.ethAmount;
+    const subjectFeeAmount = event.params.subjectEthAmount;
+    const protocolFeeAmount = event.params.protocolEthAmount;
+    const tradeAmount = event.params.ethAmount.plus(event.params.subjectEthAmount.plus(event.params.protocolEthAmount));
+    const token = (0, getters_1.getOrCreateToken)(event);
+    const protocol = (0, getters_1.getOrCreateProtocol)();
+    const pool = (0, getters_1.getOrCreatePool)(protocol, subjectAddress, event);
+    const account = (0, getters_1.getOrCreateAccount)(traderAddress, event);
+    const connection = (0, getters_1.getOrCreateConnection)(traderAddress, subjectAddress, event);
+    const tradeID = (0, events_1.createTrade)(token, traderAddress, subjectAddress, shares, sharePriceAmount, subjectFeeAmount, protocolFeeAmount, tradeAmount, isBuy, event);
+    (0, metrics_1.updateTVL)(token, protocol, pool, sharePriceAmount, isBuy);
+    (0, metrics_1.updateRevenue)(token, protocol, pool, subjectFeeAmount, protocolFeeAmount);
+    (0, metrics_1.updateVolume)(token, protocol, pool, account, sharePriceAmount, isBuy);
+    (0, metrics_1.updateShares)(token, pool, sharePriceAmount, supply);
+    (0, metrics_1.updateUsage)(protocol, pool, account, isBuy, tradeID);
+    (0, metrics_1.updateConnection)(token, connection, shares, sharePriceAmount, isBuy);
+    (0, snapshots_1.takeProtocolSnapshots)(protocol, event);
+    (0, snapshots_1.takePoolSnapshots)(pool, event);
+    connection.save();
+    account.save();
+    pool.save();
+    protocol.save();
+    return;
+}
+exports.handleTrade = handleTrade;

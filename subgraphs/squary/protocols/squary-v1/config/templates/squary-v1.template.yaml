@@ -1,0 +1,40 @@
+specVersion: 0.0.6
+schema:
+  file: ./schema.graphql
+{{#graftEnabled}}
+features:
+  - grafting
+graft:
+  base: {{subgraphId}} # Subgraph ID of base subgraph
+  block: {{graftStartBlock}} # Block number
+{{/graftEnabled}}
+dataSources:
+  - kind: ethereum/contract
+    name: BalancesTracker
+    network: goerli
+    source:
+      address: "0xE94E9d573E547DF5B7FCeDA6B03ee279e5B864Ce"
+      abi: squaryContractAbi
+      startBlock: 10208477
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities: 
+        - Group
+        - UserBalance
+        - Settlement
+      abis: 
+        - name: squaryContractAbi
+          file: ./abis/squaryContractAbi.json
+      eventHandlers:
+        - event: GroupCreated(indexed address,address[])
+          handler: handleGroupCreated
+        - event: DepositMade(indexed address,indexed address,uint256)
+          handler: handleDepositMade
+        - event: WithdrawalMade(indexed address,indexed address,uint256)
+          handler: handleWithdrawalMade
+        - event: SettleCompleted(indexed address,indexed address,indexed address,uint256)
+          handler: handleSettleCompleted
+      file: ./protocols/squary-v1/src/mapping.ts
+ 

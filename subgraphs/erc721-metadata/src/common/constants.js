@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IPFS_SLASH_LEN = exports.IPFS_PREFIX_LEN = exports.IPFS_PREFIX = exports.IPFS_SLASH = exports.BIGINT_ONE = exports.BIGINT_ZERO = exports.GENESIS_ADDRESS = void 0;
+const graph_ts_1 = require("@graphprotocol/graph-ts");
+exports.GENESIS_ADDRESS = "0x0000000000000000000000000000000000000000";
+exports.BIGINT_ZERO = graph_ts_1.BigInt.fromI32(0);
+exports.BIGINT_ONE = graph_ts_1.BigInt.fromI32(1);
+exports.IPFS_SLASH = "ipfs/";
+exports.IPFS_PREFIX = "ipfs://";
+exports.IPFS_PREFIX_LEN = exports.IPFS_PREFIX.length;
+exports.IPFS_SLASH_LEN = exports.IPFS_SLASH.length;

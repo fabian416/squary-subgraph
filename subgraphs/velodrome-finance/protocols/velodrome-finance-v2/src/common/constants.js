@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.HARDCODED_POOLS = exports.VELO_ADDRESS = exports.PROTOCOL_SLUG = exports.PROTOCOL_NAME = exports.FACTORY_ADDRESS = void 0;
+const graph_ts_1 = require("@graphprotocol/graph-ts");
+exports.FACTORY_ADDRESS = "0xf1046053aa5682b4f9a81b5481394da16be5ff5a";
+exports.PROTOCOL_NAME = "Velodrome Finance V2";
+exports.PROTOCOL_SLUG = "velodrome-finance-v2";
+exports.VELO_ADDRESS = "0x9560e827af36c94d2ac33a39bce1fe78631088db";
+const OPTIMISM_POOLS = new graph_ts_1.TypedMap();
+OPTIMISM_POOLS.set("USDC_sUSD", "0x6d5ba400640226e24b50214d2bbb3d4db8e6e15a");
+OPTIMISM_POOLS.set("USDC_DAI", "0x19715771e30c93915a5bbda134d782b81a820076");
+OPTIMISM_POOLS.set("OP_USDC", "0x0df083de449f75691fc5a36477a6f3284c269108");
+OPTIMISM_POOLS.set("WETH_USDC", "0x0493bf8b6dbb159ce2db2e0e8403e753abd1235b");
+exports.HARDCODED_POOLS = new graph_ts_1.TypedMap();
+exports.HARDCODED_POOLS.set("optimism", OPTIMISM_POOLS);
